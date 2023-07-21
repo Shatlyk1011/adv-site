@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss"],
+  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "nuxt-headlessui"],
 
-  css: ["@/assets/scss/base.scss"],
+  css: ["@/assets/tailwind.css"],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -12,7 +12,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "IonIcons",
+      title: "Ahio",
       script: [
         {
           key: "ionicons",
@@ -21,13 +21,5 @@ export default defineNuxtConfig({
       ],
     },
   },
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "@/assets/scss/vars";`,
-        },
-      },
-    },
-  },
+  vite: {},
 })

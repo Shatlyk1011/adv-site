@@ -1,14 +1,11 @@
 <template>
-  <div class="bg-slate-700">
-    custom layout
+  <MainNav/>
+  <div class="max-w-[1440px] mx-auto">
     <slot/>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+
 
 </script>
-
-<style scoped>
-
-</style>

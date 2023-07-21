@@ -1,8 +1,11 @@
 <template>
-  page 1
+  <div class="px-20 box-border mt-6 ">
+    <Categories/>
+  </div>
 </template>
 
 <script setup lang="ts">
+
 definePageMeta({
   layout: 'default',
 })
