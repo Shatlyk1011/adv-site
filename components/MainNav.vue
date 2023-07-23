@@ -14,28 +14,39 @@
               <span>Сообщения</span>
             </li>
             
-            <li class="flex items-center gap-2 cursor-pointer hover:text-main transition">
+            <li  class="flex items-center gap-2 cursor-pointer hover:text-main transition">
               <ion-icon name="heart" style="font-size: 20px"></ion-icon>
-
             </li>
 
-            <li class="flex items-center gap-2 cursor-pointer hover:text-main transition">
+            <!-- user profile -->
+            <li v-if="/* user */true" class="flex items-center relative gap-2 cursor-pointer hover:text-main transition">
               <ion-icon name="person-circle" style="font-size: 20px"></ion-icon>
-              <span>Ваш профиль</span>
+              <UIDropdownUI title="Ваш профиль"/>
             </li>
+
+<!--             <li v-else>
+              <UButton class="UButton" label="Войти"/>
+            </li> -->
 
             <li class="cursor-pointer transition px-5 py-3 bg-main hover:bg-blue-600 rounded-sm">
               Подать объявление
             </li>
+            <UButton @click="logout" class="UButton" label="Выйти"/>
           </ul>
         </div>
       </nav>
-      <!-- SEARCH BAR COMPONENT -->
+      <!-- SEARCH COMPONENT -->
     <Search />
   </div>
 </template>
 
 <script setup lang="ts">
+const {logout} = useAuth()
+
+const {user} = useUserStore().$state
+console.log('store user', user);
+
+onMounted(useUserStore().setUser)
 
 </script>
 

@@ -1,11 +1,11 @@
 <template>
   <div class="flex">
-    <HeadlessListbox v-model="selectedCity">
+    <Listbox v-model="selected">
       <div class="relative w-52">
-        <HeadlessListboxButton
+        <ListboxButton
           class="relative w-full h-full cursor-pointer rounded-sm bg-white  pl-3 pr-10 text-left border border-blue-200 focus:outline-none focus-visible:main focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-sm"
         >
-          <span class="block truncate py-1">{{ selectedCity }}</span>
+          <span class="block truncate py-1">{{ selected }}</span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
@@ -15,19 +15,19 @@
             aria-hidden="true" name="chevron-expand-outline">
           </ion-icon>
           </span>
-        </HeadlessListboxButton>
+        </ListboxButton>
 
         <transition
           leave-active-class="transition duration-100 ease-in"
           leave-from-class="opacity-100"
           leave-to-class="opacity-0"
         >
-          <HeadlessListboxOptions
+          <ListboxOptions
             class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
           >
-            <HeadlessListboxOption
+            <ListboxOption
               v-slot="{ active, selected }"
-              v-for="city in cities"
+              v-for="city in data"
               :key="city"
               :value="city"
               as="template"
@@ -53,16 +53,22 @@
 
                 </span>
               </li>
-            </HeadlessListboxOption>
-          </HeadlessListboxOptions>
+            </ListboxOption>
+          </ListboxOptions>
         </transition>
       </div>
-    </HeadlessListbox>
+    </Listbox>
   </div>
 </template>
 
 <script setup>
-const cities = ['Весь Туркменистан', 'Lebap', 'Ashgabat', 'Mary', 'Dashoguz', 'Ahal', 'Balkan']
-const selectedCity = ref(cities[0])
+
+const props = defineProps({
+  data: {
+    type: Array[String],
+    required: true
+  }
+})
+const selected = ref(props.data[0])
 
 </script>
