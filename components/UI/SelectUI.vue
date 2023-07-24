@@ -3,7 +3,7 @@
     <Listbox v-model="selected">
       <div class="relative w-52">
         <ListboxButton
-          class="relative w-full h-full cursor-pointer rounded-sm bg-white  pl-3 pr-10 text-left border border-blue-200 focus:outline-none focus-visible:main focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-sm"
+          class="relative Ufocus w-full h-full cursor-pointer rounded-sm bg-white  pl-3 pr-10 text-left border border-blue-200 sm:text-sm "
         >
           <span class="block truncate py-1">{{ selected }}</span>
           <span

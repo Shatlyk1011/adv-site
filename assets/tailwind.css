@@ -24,10 +24,19 @@
   }
 }
 
-.UButton {
-  @apply bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-xl rounded-sm;
-}
+@layer utilities {
 
-.error {
-  @apply text-red-500 font-bold  text-lg
+  
+  .UButton {
+    @apply bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-xl rounded-sm;
+  }
+  
+  .error {
+    @apply text-red-500 font-bold  text-lg
+  }
+  
+  .Ufocus {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-opacity-75 focus-visible:ring-offset-1 transition
+  }
+  
 }

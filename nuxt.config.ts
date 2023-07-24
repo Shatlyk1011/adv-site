@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@vueuse/nuxt", "nuxt-headlessui", "@nuxthq/ui", "@pinia/nuxt"],
+  modules: [
+    "@vueuse/nuxt",
+    "nuxt-headlessui",
+    "@nuxthq/ui",
+    "@pinia/nuxt",
+    "@nuxt/image",
+  ],
 
   colorMode: {
     preference: "light",
