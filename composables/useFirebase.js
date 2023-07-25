@@ -13,6 +13,6 @@ const config = {
 export default function useFirebase() {
   if (getApps().length == 0) {
     const app = initializeApp(config)
-    return { app }
+    return app
   }
 }

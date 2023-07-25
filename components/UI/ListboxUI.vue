@@ -13,7 +13,6 @@
             class="h-5 w-5 text-gray-400"
             aria-hidden="true" name="chevron-down-outline">
           </ion-icon>
-
         </span>
       </ListboxButton>
 
@@ -23,10 +22,11 @@
         leave-to-class="opacity-0"
       >
         <ListboxOptions
+          @keydown.prevent.enter = "$emit('update:selectedList', selected)"
           class="absolute z-30 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
         >
           <ListboxOption
-            @click = "$emit('update:selectedList', selected)"
+            @click = "$emit('update:selectedList', selected)"            
             v-slot="{ active, selected }"
             v-for="d in data"
             :key="d.title"
@@ -63,11 +63,16 @@
 <script setup lang="ts">
 import{ ICategory, IRegion } from '@/assets/types'
 
-defineProps({
+const props = defineProps({
   data: {
-    type: Array<IRegion | ICategory>,
+    type: Array<IRegion | ICategory | {title:string}>,
     required: true,
-  }
+  },
+  base: {
+    type: String,
+    required: false,
+    default: "Выберите"
+  } 
 })
-const selected = ref({title: 'Выберите'})
+const selected = ref({title: props.base})
 </script>

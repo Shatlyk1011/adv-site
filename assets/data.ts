@@ -192,3 +192,21 @@ export const regions: IRegion[] = [
     ],
   },
 ]
+
+export const contactOptions: IProductCondition[] = [
+  {
+    name: "phone/sms",
+    value: "phone/sms",
+    label: "Звонки и сообщения",
+  },
+  {
+    name: "phone",
+    value: "phone",
+    label: "Только звонки",
+  },
+  {
+    name: "sms",
+    value: "sms",
+    label: "Только сообщения",
+  },
+]

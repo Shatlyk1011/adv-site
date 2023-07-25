@@ -1,9 +1,8 @@
 <template>
   <div>
-    <UButton label="regSide" color="red" @click="regSide = true" />
-
     <USlideover 
       class="backdrop-blur-sm"
+      :open="regSide"
       :ui="{background: 'bg-gray-200', overlay: {background: 'bg-stone-200/30' }, width: 'w-screen max-w-md'}"
       v-model="regSide">
       <div class="px-8 py-6">

@@ -39,8 +39,6 @@ const {register, authError, isPending} = useAuth()
 const handleRegistration = () => {
   register(email.value, password.value, displayName.value)
 
-  if(!authError.value) {
-    regSide.value = false
-  }
+  if(!authError.value) regSide.value = false
 }
 </script>

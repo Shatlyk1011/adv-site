@@ -28,9 +28,7 @@ const {authError, login, isPending} = useAuth()
 
 const handleLogin = async () => {
   await login(email.value, password.value)
-  if(!authError.value) {
-    regSide.value = false
-}
+  if(!authError.value) regSide.value = false
 } 
 
 </script>
