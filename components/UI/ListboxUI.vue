@@ -3,7 +3,7 @@
   <Listbox v-model="selected">
     <div class="relative ">
       <ListboxButton
-        class="relative Ufocus w-full cursor-pointer rounded-sm bg-blue-300/20 py-2 pl-3 pr-10 text-left shadow-sm Ufocus"
+        class="relative Ufocus w-full cursor-pointer rounded-sm bg-blue-300/10 py-2 pl-3 pr-10 text-left shadow-sm Ufocus"
       >
         <span class="block truncate text-base">{{ selected.title }}</span>
         <span
@@ -48,9 +48,9 @@
               >
               <span
                 v-if="selected"
-                class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                class="absolute inset-y-0 left-0 flex items-center pl-3 text-main"
               >
-                <CheckIcon class="h-5 w-5" aria-hidden="true" />
+              <ion-icon name="checkmark-outline" style="font-size: 18px"></ion-icon>
               </span>
             </li>
           </ListboxOption>
@@ -61,13 +61,13 @@
 </template>
 
 <script setup lang="ts">
-import{ ICategory } from '@/assets/types'
+import{ ICategory, IRegion } from '@/assets/types'
 
-const props = defineProps({
+defineProps({
   data: {
-    type: Array<ICategory>,
+    type: Array<IRegion | ICategory>,
     required: true,
   }
 })
-const selected = ref(props.data[0])
+const selected = ref({title: 'Выберите'})
 </script>
