@@ -1,7 +1,8 @@
 <template>
   <div class="px-20 box-border py-10 ">
     <h1 class="text-4xl font-bold tracking-tight">Создать обявление</h1>
-    <button class="bg-blue-500" @click="checkrefs">check refs</button>
+    <button class="bg-blue-500 p-4 text-white" @click="checkrefs">check refs</button>
+    <button class="bg-blue-500 p-4 text-white" @click="handleUploadImg">uplaod</button>
     <form class="flex flex-col mt-6 gap-4">
       <!-- description section -->
       <UCard class="rounded-sm">
@@ -162,9 +163,9 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
+import { nanoid } from 'nanoid'; 
 import { categories, productConditions, productTypes, regions, contactOptions } from 'assets/data';
-import { ICategory, IRegion } from 'assets/types';
+import { ICategory, IRegion, IImage } from 'assets/types';
 
 const title = ref('')
 const selectedCategory= ref<ICategory | null>(null)
@@ -185,11 +186,24 @@ const currency = ref('TMT')
 const delivery = ref(false)
 const communication = ref<boolean>()
 
+const advId = nanoid(6)
+
 /* composables */
-const {selectedImages, handleImages} = getImages()
+const { selectedImages, handleImages } = getImages()
 
+const selectedImageFiles = computed(() => {
+  if(selectedImages.value) return selectedImages.value.map((i: IImage) => i.file)
+  return
+})
+const { uploadImages } = useFirebaseStorage()
+
+
+
+const handleUploadImg = () => {
+  uploadImages(selectedImageFiles.value, advId)
+}
 const handleImageDelete = (index: string) => selectedImages.value.splice(index, 1)
-
+  
 const handleSelectedCategory = (payload: ICategory) => {
   selectedSubCategory.value = null
   selectedCategory.value = payload
@@ -206,6 +220,11 @@ const handleSelectedCity = (payload:string) => selectedCity.value = payload
 
 const handleSelectedCurrency = (payload: string) => currency.value = payload
 
+
+definePageMeta({
+  layout: 'nav',
+})
+
 const checkrefs = () => {
   let content = {
     title: title.value,
@@ -214,7 +233,6 @@ const checkrefs = () => {
     condition: condition.value,
     advType: advType.value,
     description: description.value,
-    /* photos */
 
     meetingArea: {
       region: selectedRegion.value?.title,
@@ -233,7 +251,6 @@ const checkrefs = () => {
   }
   console.dir(content);
 }
-definePageMeta({
-  layout: 'nav',
-})
+
+watch(selectedImageFiles, () => console.log(selectedImageFiles.value))
 </script>

@@ -1,4 +1,5 @@
 import { initializeApp, getApps } from "firebase/app"
+import { getStorage } from "firebase/storage"
 
 const config = {
   apiKey: "AIzaSyCvrVDFB36hhcTLZVXktkfplGRtWHx2rdw",
@@ -13,6 +14,7 @@ const config = {
 export default function useFirebase() {
   if (getApps().length == 0) {
     const app = initializeApp(config)
+
     return app
   }
 }

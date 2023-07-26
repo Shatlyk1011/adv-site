@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ClientOnly>
     <USlideover 
       class="backdrop-blur-sm"
       :open="regSide"
@@ -31,7 +31,7 @@
         </span>
       </div>
     </USlideover>
-  </div>
+  </ClientOnly>
 </template>
 
 <script setup>

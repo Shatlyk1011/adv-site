@@ -6,7 +6,8 @@ import {
 } from "firebase/auth"
 import { signOut, getAuth } from "firebase/auth"
 
-useFirebase()
+const app = useFirebase()
+
 const auth = getAuth()
 
 const authError = ref()
@@ -21,8 +22,6 @@ const register = async (
   password: string,
   displayName: string
 ) => {
-  /*   const auth = getAuth() */
-
   try {
     authError.value = null
     isPending.value = true
@@ -33,7 +32,6 @@ const register = async (
 }
 
 const login = async (email: string, password: string) => {
-  /*   const auth = getAuth() */
   try {
     isPending.value = true
     authError.value = null
@@ -56,18 +54,15 @@ const login = async (email: string, password: string) => {
 }
 
 const logout = async () => {
-  /*   const auth = getAuth() */
-  console.log("auth", auth)
   try {
     await signOut(auth)
-    console.log("sign out")
   } catch (err: any) {
     authError.value = err.message
   }
 }
 
 const useAuth = () => {
-  return { authError, isPending, register, login, logout }
+  return { app, authError, isPending, register, login, logout }
 }
 
 export default useAuth
