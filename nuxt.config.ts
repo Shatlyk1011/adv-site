@@ -8,14 +8,15 @@ export default defineNuxtConfig({
     "@nuxt/image",
   ],
 
+  imports: {
+    dirs: ["composables/*/*.{ts,js,mjs,mts}", "./stores"],
+  },
+
   colorMode: {
     preference: "light",
   },
   ui: {
     safelistColors: ["blue-800", "rounded-sm"],
-  },
-  imports: {
-    dirs: ["./stores"],
   },
 
   pinia: {

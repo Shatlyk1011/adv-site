@@ -1,7 +1,6 @@
 <template>
   <div class="px-20 box-border py-10 ">
     <h1 class="text-4xl font-bold tracking-tight">Создать обявление</h1>
-    <button class="bg-blue-500 p-4 text-white" @click="checkrefs">check refs</button>
     <button class="bg-blue-500 p-4 text-white" @click="handleUploadImg">uplaod</button>
     <form class="flex flex-col mt-6 gap-4">
       <!-- description section -->
@@ -32,11 +31,11 @@
           </SharedLabel>
           
           <SharedLabel title="Выберите тип товара" v-if="selectedCategory">
-            <UIRadioGroupUI @update:selectedRadio="handleSelectedSubCategory" :data="selectedCategory?.subCategories"/>
+            <UIRadioGroupUI tabindex="0" @update:selectedRadio="handleSelectedSubCategory" :data="selectedCategory?.subCategories"/>
           </SharedLabel>
  
           <SharedLabel title="Состояние">
-            <UIRadioUI :data="productConditions" @update:radio="handleCondition"/>
+            <UIRadioUI tabindex="0" :data="productConditions" @update:radio="handleCondition"/>
           </SharedLabel>
 
           <SharedLabel title="Вид объявления">
@@ -109,26 +108,12 @@
         </div>
       </UCard>
 
-      <UCard>
+      <UCard class="rounded-sm">
         <template #header>
           <h3 class="text-2xl font-medium">Цена и контакты</h3>
         </template>
 
         <div class="flex flex-col gap-8 min-h-[300px] max-w-[70%]">
-          <SharedLabel title="Телефон для контакта">
-            <UInput 
-                minlength="8"
-                maxlength="13"
-                type="nubmer"
-                :ui="{ variant: {none: ''}}"
-                variant="none"
-                color="blue-300" 
-                size="xl"
-                class="Ufocus rounded-sm bg-blue-300/10 max-w-[150px]" 
-                v-model="phoneNumber" 
-                placeholder="+993 6410..."
-                required/>
-          </SharedLabel>
 
           <SharedLabel title="Цена">
             <div class="flex gap-1">
@@ -148,6 +133,21 @@
             </div>
           </SharedLabel>
 
+          <SharedLabel title="Телефон для контакта">
+            <UInput 
+                minlength="8"
+                maxlength="13"
+                type="nubmer"
+                :ui="{ variant: {none: ''}}"
+                variant="none"
+                color="blue-300" 
+                size="xl"
+                class="Ufocus rounded-sm bg-blue-300/10 max-w-[150px]" 
+                v-model="phoneNumber" 
+                placeholder="+993 6410..."
+                required/>
+          </SharedLabel>
+
           <SharedLabel title="Возможна ли доставка?">
             <UToggle color="green" v-model="delivery" class=""/>
           </SharedLabel>
@@ -157,6 +157,8 @@
           </SharedLabel>
         </div>
       </UCard>
+
+      <UButton @click="handleAdvSubmit" color="blue" label="submit"/>
     </form>
 
   </div>
@@ -165,7 +167,16 @@
 <script setup lang="ts">
 import { nanoid } from 'nanoid'; 
 import { categories, productConditions, productTypes, regions, contactOptions } from 'assets/data';
-import { ICategory, IRegion, IImage } from 'assets/types';
+import { ICategory, IRegion, IImage, IAdvertisement } from 'assets/types';
+import { Timestamp } from 'firebase/firestore';
+
+definePageMeta({
+  layout: 'nav',
+})
+const user = useUserStore().user
+const userUid = useUserStore().uid
+const displayName = useUserStore().displayName
+
 
 const title = ref('')
 const selectedCategory= ref<ICategory | null>(null)
@@ -182,25 +193,26 @@ const addressNumber = ref('')
 const phoneNumber = ref('')
 const price = ref('')
 const currency = ref('TMT')
-
 const delivery = ref(false)
-const communication = ref<boolean>()
+const communication = ref()
 
-const advId = nanoid(6)
+const advId = nanoid(10)
 
 /* composables */
 const { selectedImages, handleImages } = getImages()
+const {addDocument} = useFirestore()
+
+const { uploadImages, folderRef, imageUrls } = useFirebaseStorage()
+/*  */
 
 const selectedImageFiles = computed(() => {
   if(selectedImages.value) return selectedImages.value.map((i: IImage) => i.file)
   return
 })
-const { uploadImages } = useFirebaseStorage()
 
 
 
 const handleUploadImg = () => {
-  uploadImages(selectedImageFiles.value, advId)
 }
 const handleImageDelete = (index: string) => selectedImages.value.splice(index, 1)
   
@@ -220,37 +232,46 @@ const handleSelectedCity = (payload:string) => selectedCity.value = payload
 
 const handleSelectedCurrency = (payload: string) => currency.value = payload
 
-
-definePageMeta({
-  layout: 'nav',
-})
-
-const checkrefs = () => {
-  let content = {
+const handleAdvSubmit = async () => {
+  console.log('handle adv submit');
+  let newAdv:IAdvertisement = {
     title: title.value,
-    category: selectedCategory.value?.title,
-    subCategory: selectedSubCategory.value,
+    category: selectedCategory.value!.title,
+    subCategory: selectedSubCategory.value!,
     condition: condition.value,
     advType: advType.value,
     description: description.value,
-
-    meetingArea: {
-      region: selectedRegion.value?.title,
-      city: selectedCity.value,
-      address: address.value,
-      addressNumber: addressNumber.value,
+    createdAt: Timestamp.fromDate(new Date()),
+    price: price.value,
+    currency: currency.value,
+    delivery: delivery.value,
+    communication: communication.value!,
+    
+    images: {
+      urls: imageUrls.value,
+      storageFolderPath: folderRef.value
     },
 
-    info: {
-      phoneNumber: phoneNumber.value,
-      price: price.value,
-      currency: currency.value,
-      delivery: delivery.value,
-      communication: communication.value
+    appointment: {
+      region: selectedRegion.value!.title,
+      city: selectedCity.value!,
+      address: address.value,
+      addressNumber: addressNumber.value
+    },
+
+    userInfo : {
+      uid: userUid!,
+      userName: displayName!,
+      phone: phoneNumber.value,
+      
     }
+
   }
-  console.dir(content);
+  await uploadImages(selectedImageFiles.value, advId)
+  await addDocument('advs', advId, newAdv)
+  console.log('folderref', folderRef.value);
 }
+
 
 watch(selectedImageFiles, () => console.log(selectedImageFiles.value))
 </script>

@@ -1,10 +1,10 @@
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
+  signOut,
+  getAuth,
 } from "firebase/auth"
-import { signOut, getAuth } from "firebase/auth"
 
 const app = useFirebase()
 
@@ -12,10 +12,6 @@ const auth = getAuth()
 
 const authError = ref()
 const isPending = ref()
-
-onAuthStateChanged(auth, (_user) => {
-  useUserStore().setUser(_user)
-})
 
 const register = async (
   email: string,

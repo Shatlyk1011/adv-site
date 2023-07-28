@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore"
+
 export interface ICategory {
   id: number | string
   title: string
@@ -22,16 +24,26 @@ export interface IImage {
   url: string
 }
 
+export interface IAdvImage {
+  url: string
+  storagePath: string
+}
+
 export interface IAdvertisement {
   title: string
   category: string
   subCategory: string
   condition: boolean
   advType: boolean
-  createdAt: string
+  createdAt: Timestamp
+  description: string
+  price: string | number
+  currency: string
+  delivery: boolean
+  communication: boolean
 
   images: {
-    urls: [{ url: string; storagePath: string }]
+    urls: IAdvImage[]
     storageFolderPath: string
   }
 
@@ -44,7 +56,7 @@ export interface IAdvertisement {
 
   userInfo: {
     readonly uid: string | number
-    name: string
+    userName: string
     phone: string | number
     geolocation?: string
   }
