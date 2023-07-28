@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "@nuxthq/ui",
     "@pinia/nuxt",
     "@nuxt/image",
+    "@vee-validate/nuxt",
   ],
 
   imports: {
@@ -15,10 +16,20 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "light",
   },
+
   ui: {
     safelistColors: ["blue-800", "rounded-sm"],
   },
 
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: "VeeForm",
+      Field: "VeeField",
+      FieldArray: "VeeFieldArray",
+      ErrorMessage: "VeeErrorMessage",
+    },
+  },
   pinia: {
     autoImports: ["defineStore"],
   },

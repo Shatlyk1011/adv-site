@@ -1,33 +1,37 @@
 <template>
   <div class="px-20 box-border py-10 ">
     <h1 class="text-4xl font-bold tracking-tight">Создать обявление</h1>
-    <button class="bg-blue-500 p-4 text-white" @click="handleUploadImg">uplaod</button>
-    <form class="flex flex-col mt-6 gap-4">
+    <VeeForm #="{errors, values}" @submit="handleAdvSubmit" class="flex flex-col mt-6 gap-4">
       <!-- description section -->
       <UCard class="rounded-sm">
         <template #header>
           <h3 class="text-2xl font-medium">Опишите в подробностях ваш товар</h3>
-
           <p class="text-xs font-bold mt-1 ">
             <span class="text-red-500">*</span> - обязательные поля
           </p>
         </template>
-
+        errors{{ errors }} <br/> <br/>
+        values {{ values }} <br/>
         <div class="flex flex-col gap-8 min-h-[300px] max-w-[70%]">
           <SharedLabel title="Укажите название">
-            <UInput 
-              :ui="{ variant: {none: ''}, size: {xl: 'text-lg'}}"
-              variant="none"
-              color="blue-300" 
-              size="xl"
-              class="Ufocus rounded-sm group bg-blue-300/10 " 
-              v-model="title" 
-              placeholder="Iphone 11, Телевизор, Холодильник..,"
-              required/>
+            <VeeField name="input" as="UInput" type="text" :rules="titleValidation">
+              <UInput 
+                :ui="{ variant: {none: ''}, size: {xl: 'text-lg'}}"
+                variant="none"
+                color="blue-300" 
+                size="xl"
+                class="Ufocus rounded-sm group bg-blue-300/10 focus:required:invalid:bg-red-300/20" 
+                v-model="title" 
+                placeholder="Iphone 11, Телевизор, Холодильник..,"
+                />
+            </VeeField>
+            <div class="error">
+              <VeeErrorMessage name="input"/>
+            </div>
           </SharedLabel>
 
           <SharedLabel title="Выберите категорию">
-            <UIListboxUI :data="categories" @update:selectedList="handleSelectedCategory"/>
+            <UIListboxUI :data="categories" @update:selectedList="handleSelectedCategory" />
           </SharedLabel>
           
           <SharedLabel title="Выберите тип товара" v-if="selectedCategory">
@@ -35,7 +39,7 @@
           </SharedLabel>
  
           <SharedLabel title="Состояние">
-            <UIRadioUI tabindex="0" :data="productConditions" @update:radio="handleCondition"/>
+              <UIRadioUI tabindex="0" :data="productConditions" @update:radio="handleCondition"/>
           </SharedLabel>
 
           <SharedLabel title="Вид объявления">
@@ -81,28 +85,34 @@
 
           <div class="flex justify-between gap-4">
             <SharedLabel title="Уточните адрес" class="flex-1">
-              <UInput 
-                maxlength="30"
-                :ui="{ variant: {none: ''}}"
-                variant="none"
-                color="blue-300" 
-                size="xl"
-                class="Ufocus rounded-sm bg-blue-300/10 " 
-                v-model="address" 
-                placeholder="Примеры: Улица Атамырат, дом 20., Микрорайон бахар, Автовокзал.,"
-                required/>
+              <VeeField name="address" as="UInput" type="text" :rules="addressValidation">
+                <UInput 
+                  maxlength="30"
+                  :ui="{ variant: {none: ''}}"
+                  variant="none"
+                  color="blue-300" 
+                  size="xl"
+                  class="Ufocus rounded-sm bg-blue-300/10 " 
+                  v-model="address" 
+                  placeholder="Примеры: Улица Атамырат, дом 20., Микрорайон бахар, Автовокзал.,"
+                  required/>
+              </VeeField>
+              <VeeErrorMessage class="error" name="address"/>
             </SharedLabel>
 
             <SharedLabel title="Номер дома" class="max-w-[110px]" >
-              <UInput 
-                maxlength="6"
-                :ui="{ variant: {none: ''}}" 
-                variant="none"
-                v-model="addressNumber"
-                color="blue-300" 
-                size="xl"
-                class="Ufocus rounded-sm bg-blue-300/10 " 
-              />
+              <VeeField name="addressNumber" as="UInput" type="text" :rules="addressNumberValidation">
+                <UInput
+                  maxlength="6"
+                  :ui="{ variant: {none: ''}}" 
+                  variant="none"
+                  v-model="addressNumber"
+                  color="blue-300" 
+                  size="xl"
+                  class="Ufocus rounded-sm bg-blue-300/10 " 
+                />
+              </VeeField>
+              <VeeErrorMessage class=error name="addressNumber"/>
             </SharedLabel>
           </div>
         </div>
@@ -116,25 +126,31 @@
         <div class="flex flex-col gap-8 min-h-[300px] max-w-[70%]">
 
           <SharedLabel title="Цена">
-            <div class="flex gap-1">
-              <UInput 
-                maxlength="16"
-                :ui="{ variant: {none: ''}}"
-                variant="none"
-                color="blue-300" 
-                class="Ufocus rounded-sm bg-blue-300/10 max-w-[110px] h-full" 
-                v-model="price" 
-                required/>
+            <div class="flex gap-1 items-stretch">
+              <VeeField name="price" as="UInput" type="number" :rules="priceValidation">
+                <UInput 
+                  type="number"
+                  maxlength="20"
+                  :ui="{ variant: {none: ''}, wrapper: 'relative h-full'}"
+                  variant="none"
+                  color="blue-300" 
+                  class="Ufocus rounded-sm bg-blue-300/10 max-w-[110px] h-full" 
+                  v-model="price"
+                  required/>
+              </VeeField>
               <UIListboxUI 
                 :data="[{title: 'TMT'}, {title: 'USD($)'}]"
                 base="TMT"
                 class="h-full min-w-[110px]" 
-                @update:selectedList="handleSelectedCurrency"/>
+                @update:selectedList="handleSelectedCurrency"
+                />
             </div>
+            <VeeErrorMessage class="error" name="price"/>
           </SharedLabel>
 
           <SharedLabel title="Телефон для контакта">
-            <UInput 
+            <VeeField name="phone" as="UInput" :rules="phoneValidation">
+              <UInput 
                 minlength="8"
                 maxlength="13"
                 type="nubmer"
@@ -146,6 +162,8 @@
                 v-model="phoneNumber" 
                 placeholder="+993 6410..."
                 required/>
+            </VeeField>
+            <VeeErrorMessage class="error" name="phone"/>
           </SharedLabel>
 
           <SharedLabel title="Возможна ли доставка?">
@@ -158,8 +176,8 @@
         </div>
       </UCard>
 
-      <UButton @click="handleAdvSubmit" color="blue" label="submit"/>
-    </form>
+      <UButton type="submit" @click="handleAdvSubmit" color="blue" label="submit"/>
+  </VeeForm>
 
   </div>
 </template>
@@ -176,7 +194,6 @@ definePageMeta({
 const user = useUserStore().user
 const userUid = useUserStore().uid
 const displayName = useUserStore().displayName
-
 
 const title = ref('')
 const selectedCategory= ref<ICategory | null>(null)
@@ -203,6 +220,8 @@ const { selectedImages, handleImages } = getImages()
 const {addDocument} = useFirestore()
 
 const { uploadImages, folderRef, imageUrls } = useFirebaseStorage()
+
+const { titleValidation, conditionValidation, addressValidation, priceValidation, phoneValidation, addressNumberValidation, validated } = useFormValidation()
 /*  */
 
 const selectedImageFiles = computed(() => {
@@ -210,10 +229,6 @@ const selectedImageFiles = computed(() => {
   return
 })
 
-
-
-const handleUploadImg = () => {
-}
 const handleImageDelete = (index: string) => selectedImages.value.splice(index, 1)
   
 const handleSelectedCategory = (payload: ICategory) => {
@@ -233,45 +248,44 @@ const handleSelectedCity = (payload:string) => selectedCity.value = payload
 const handleSelectedCurrency = (payload: string) => currency.value = payload
 
 const handleAdvSubmit = async () => {
-  console.log('handle adv submit');
-  let newAdv:IAdvertisement = {
-    title: title.value,
-    category: selectedCategory.value!.title,
-    subCategory: selectedSubCategory.value!,
-    condition: condition.value,
-    advType: advType.value,
-    description: description.value,
-    createdAt: Timestamp.fromDate(new Date()),
-    price: price.value,
-    currency: currency.value,
-    delivery: delivery.value,
-    communication: communication.value!,
-    
-    images: {
-      urls: imageUrls.value,
-      storageFolderPath: folderRef.value
-    },
-
-    appointment: {
-      region: selectedRegion.value!.title,
-      city: selectedCity.value!,
-      address: address.value,
-      addressNumber: addressNumber.value
-    },
-
-    userInfo : {
-      uid: userUid!,
-      userName: displayName!,
-      phone: phoneNumber.value,
+  if(validated.value) {
+    let newAdv:IAdvertisement = {
+      title: title.value,
+      category: selectedCategory.value!.title,
+      subCategory: selectedSubCategory.value!,
+      condition: condition.value,
+      advType: advType.value,
+      description: description.value,
+      createdAt: Timestamp.fromDate(new Date()),
+      price: price.value,
+      currency: currency.value,
+      delivery: delivery.value,
+      communication: communication.value!,
       
+      images: {
+        urls: imageUrls.value,
+        storageFolderPath: folderRef.value
+      },
+
+      appointment: {
+        region: selectedRegion.value!.title,
+        city: selectedCity.value!,
+        address: address.value,
+        addressNumber: addressNumber.value
+      },
+
+      userInfo : {
+        uid: userUid!,
+        userName: displayName!,
+        phone: phoneNumber.value,
+        
+      }
+
     }
-
+    await uploadImages(selectedImageFiles.value, advId)
+    await addDocument('advs', advId, newAdv)
+  } else {
+    console.log('error заполните все');
   }
-  await uploadImages(selectedImageFiles.value, advId)
-  await addDocument('advs', advId, newAdv)
-  console.log('folderref', folderRef.value);
 }
-
-
-watch(selectedImageFiles, () => console.log(selectedImageFiles.value))
 </script>

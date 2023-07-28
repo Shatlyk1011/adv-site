@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
+    "@vee-validate/nuxt": "^4.10.8",
     "firebase": "^10.1.0",
     "pinia": "^2.1.4",
     "vuedraggable": "^4.1.0"
