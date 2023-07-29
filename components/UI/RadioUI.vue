@@ -1,6 +1,7 @@
 <template>
   <div class="flex self-start gap-4" >
-    <URadio :ui="{base: 'mr-[-6px]', ring: 'ring-1'}" @change="$emit('update:radio', selected)" color="blue-400" v-for="d of data" :value="d.value" :key="d.name" :label="d.label" v-model="selected" />
+    <URadio :ui="{base: 'mr-[-6px]', ring: 'ring-1'}" :name="name" @change="$emit('update:radio', selected)" color="blue-400" v-for="d of data" :value="d.value" :key="d.name" :label="d.label" v-model="selected" 
+    />
   </div>
 </template>
 
@@ -8,6 +9,6 @@
 const selected = ref()
 
 defineProps({
-  data: Array
+  data: Array,
 })
 </script>

@@ -45,7 +45,7 @@ export interface IAdvertisement {
   images: {
     urls: IAdvImage[]
     storageFolderPath: string
-  }
+  } | null
 
   appointment: {
     region: string

@@ -1,7 +1,6 @@
 const useFormValidation = () => {
   const titleValidated = ref(false)
 
-  const conditionValidated = ref(false)
   const addressValidated = ref(false)
   const priceValidated = ref(false)
   const phoneValidated = ref(false)
@@ -12,18 +11,7 @@ const useFormValidation = () => {
       titleValidated.value = false
       return "Заполните загаловок"
     } else {
-      titleValidated.value = true
-      return titleValidated.value
-    }
-  }
-
-  const conditionValidation = (value: any) => {
-    if (!value) {
-      conditionValidated.value = false
-      return "Выберите состояние"
-    } else {
-      conditionValidated.value = true
-      return conditionValidated.value
+      return (titleValidated.value = true)
     }
   }
 
@@ -32,8 +20,7 @@ const useFormValidation = () => {
       addressValidated.value = false
       return "Заполните адрес"
     } else {
-      addressValidated.value = true
-      return addressValidated.value
+      return (addressValidated.value = true)
     }
   }
 
@@ -42,8 +29,7 @@ const useFormValidation = () => {
       addressNumberValidated.value = false
       return "Укажите номер дома"
     } else {
-      addressNumberValidated.value = true
-      return addressNumberValidated.value
+      return (addressNumberValidated.value = true)
     }
   }
 
@@ -52,8 +38,7 @@ const useFormValidation = () => {
       priceValidated.value = false
       return "Укажите цену"
     } else {
-      priceValidated.value = true
-      return priceValidated.value
+      return (priceValidated.value = true)
     }
   }
 
@@ -62,15 +47,13 @@ const useFormValidation = () => {
       phoneValidated.value = false
       return "Укажите номер"
     } else {
-      phoneValidated.value = true
-      return phoneValidated.value
+      return (phoneValidated.value = true)
     }
   }
 
   const validated = computed(
     () =>
       titleValidated.value &&
-      conditionValidated.value &&
       addressValidated.value &&
       priceValidated.value &&
       phoneValidated.value &&
@@ -79,7 +62,6 @@ const useFormValidation = () => {
 
   return {
     titleValidation,
-    conditionValidation,
     addressValidation,
     addressNumberValidation,
     priceValidation,

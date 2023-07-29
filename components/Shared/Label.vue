@@ -1,6 +1,6 @@
 <template>
   <label class="flex flex-col gap-2 text-base ">
-    <p class="after:content-['*'] after:text-red-500 text-base font-medium">{{title}}</p>
+    <p class="text-base font-medium">{{title}}</p>
     <slot/>
   </label>
 </template>
