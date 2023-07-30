@@ -2,6 +2,7 @@
   <div class="px-20 box-border mt-6 ">
     <Categories/>
     <Auth/>
+    <AdvLatestAdvs/>
   </div>
 </template>
 

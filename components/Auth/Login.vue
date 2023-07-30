@@ -1,6 +1,6 @@
 <template>
   <form @keydown.prevent.enter="handleLogin" class="mt-4 flex flex-col gap-4"> 
-    <h2 class="text-2xl font-bold text-center">Войти</h2>
+    <h3 class="text-2xl font-bold text-center">Войти</h3>
     <label class="block">
       <span class="ml-[1px] font-medium ">
         Email

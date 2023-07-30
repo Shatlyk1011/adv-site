@@ -195,6 +195,7 @@ import { Timestamp } from 'firebase/firestore';
 
 definePageMeta({
   layout: 'nav',
+  middleware: 'auth'
 })
 let count = ref(0)
 const userUid = useUserStore().uid
@@ -231,7 +232,6 @@ const { titleValidation, addressValidation, priceValidation, phoneValidation, ad
 
 const selectedImageFiles = computed(() => {
   if(selectedImages.value) return selectedImages.value.map((i: IImage) => i.file)
-  return
 })
 
 const handleImageDelete = (index: string) => selectedImages.value.splice(index, 1)

@@ -1,4 +1,10 @@
-import { getFirestore, doc, setDoc } from "firebase/firestore"
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  collection,
+  getDocs,
+} from "firebase/firestore"
 import { IAdvertisement } from "assets/types"
 
 const { app } = useAuth()
@@ -6,6 +12,20 @@ const { app } = useAuth()
 const db = getFirestore(app!)
 
 const firestoreError = ref(null)
+
+const getCollection = async (coll: string) => {
+  let results = []
+
+  const docsRef = collection(db, coll)
+
+  const querySnap = await getDocs(docsRef)
+
+  querySnap.forEach((doc) => {
+    results.push({ ...doc.data(), id: doc.id })
+  })
+
+  return results
+}
 
 const addDocument = async (coll: string, id: string, data: IAdvertisement) => {
   if (db) {
@@ -22,7 +42,7 @@ const addDocument = async (coll: string, id: string, data: IAdvertisement) => {
 }
 
 const useFirestore = () => {
-  return { addDocument }
+  return { addDocument, getCollection }
 }
 
 export default useFirestore

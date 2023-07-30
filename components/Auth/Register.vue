@@ -1,6 +1,6 @@
 <template>
   <form @keydown.prevent.enter="handleRegistration" class="mt-4 flex flex-col gap-4"> 
-    <h2 class="text-2xl font-bold text-center">Зарегистрируйтесь</h2>
+    <h3 class="text-2xl font-bold text-center">Зарегистрируйтесь</h3>
     <label class="block">
       <span class="ml-[1px] font-medium ">
         Имя
