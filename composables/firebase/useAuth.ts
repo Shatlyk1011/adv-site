@@ -3,12 +3,9 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signOut,
-  getAuth,
 } from "firebase/auth"
 
-const app = useFirebase()
-
-const auth = getAuth()
+const { auth } = useFirebase()
 
 const authError = ref()
 const isPending = ref()
@@ -58,7 +55,7 @@ const logout = async () => {
 }
 
 const useAuth = () => {
-  return { app, authError, isPending, register, login, logout }
+  return { authError, isPending, register, login, logout }
 }
 
 export default useAuth

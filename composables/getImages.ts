@@ -3,7 +3,6 @@ const selectedImages = ref()
 const handleImages = (e: Event) => {
   const files = (e.target as HTMLInputElement).files
   if (files) {
-    let length = files.length
     let fileArr = Array.from(files).map((file) => {
       return {
         file,

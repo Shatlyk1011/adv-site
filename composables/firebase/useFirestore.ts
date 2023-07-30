@@ -1,22 +1,14 @@
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  collection,
-  getDocs,
-} from "firebase/firestore"
+import { doc, setDoc, collection, getDocs } from "firebase/firestore"
 import { IAdvertisement } from "assets/types"
 
-const { app } = useAuth()
-
-const db = getFirestore(app!)
+const { firestore } = useFirebase()
 
 const firestoreError = ref(null)
 
 const getCollection = async (coll: string) => {
-  let results = []
+  let results: any /* !! */ = []
 
-  const docsRef = collection(db, coll)
+  const docsRef = collection(firestore, coll)
 
   const querySnap = await getDocs(docsRef)
 
@@ -28,8 +20,8 @@ const getCollection = async (coll: string) => {
 }
 
 const addDocument = async (coll: string, id: string, data: IAdvertisement) => {
-  if (db) {
-    const docRef = doc(db, coll, id)
+  if (firestore) {
+    const docRef = doc(firestore, coll, id)
     firestoreError.value = null
     try {
       await setDoc(docRef, data)

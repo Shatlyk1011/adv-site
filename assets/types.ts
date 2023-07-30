@@ -29,6 +29,11 @@ export interface IAdvImage {
   storagePath: string
 }
 
+export type Images = {
+  urls: IAdvImage[]
+  storageFolderPath: string
+}
+
 export interface IAdvertisement {
   title: string
   category: string

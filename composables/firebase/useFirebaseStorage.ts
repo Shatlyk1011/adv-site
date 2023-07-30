@@ -1,20 +1,7 @@
-import {
-  getStorage,
-  ref as strRef,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage"
+import { ref as strRef, uploadBytes, getDownloadURL } from "firebase/storage"
+import { Images } from "@/assets/types"
 
-import { IAdvImage } from "@/assets/types"
-
-type Images = {
-  urls: IAdvImage[]
-  storageFolderPath: string
-}
-
-const { app } = useAuth()
-
-const storage = getStorage(app)
+const { storage } = useFirebase()
 
 const storageError = ref()
 
@@ -29,17 +16,13 @@ const uploadImages = async (files: Array<File>, advId: string) => {
 
   images.storageFolderPath = `users/${user!.displayName! + userId!}/${advId}}`
 
-  let random = () => Math.floor(Math.random() * 100)
-
   for (let file of files) {
-    let ran = random()
     const imageRef = `users/${user!.displayName! + userId!}/${advId}/${
-      file.name + ran
+      file.name
     }`
     let storageRef = strRef(storage, imageRef)
 
     try {
-      console.log(`called ${file.name}`)
       await uploadBytes(storageRef, file)
       const url = await getDownloadURL(storageRef)
       console.log("dowurl", url)
