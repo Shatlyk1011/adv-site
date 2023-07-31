@@ -65,7 +65,7 @@ export interface IAdvertisement {
     region: string
     city: string
     address: string
-    addressNumber: string | number
+    addressNumber?: string | number
   }
   userInfo: TUserInfo
 }

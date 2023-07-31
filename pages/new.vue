@@ -105,20 +105,16 @@
               </VeeField>
               <VeeErrorMessage class="warning" name="address"/>
             </SharedLabel>
-            {{ registeredAt }}
             <SharedLabel title="Номер дома" class="max-w-[110px]" >
-              <VeeField name="addressNumber" as="UInput" type="text" :rules="addressNumberValidation">
-                <UInput
-                  maxlength="6"
-                  :ui="{ variant: {none: ''}}" 
-                  variant="none"
-                  v-model="addressNumber"
-                  color="blue-300" 
-                  size="xl"
-                  class="Ufocus rounded-sm bg-blue-300/10 " 
-                />
-              </VeeField>
-              <VeeErrorMessage class=warning name="addressNumber"/>
+              <UInput
+                maxlength="6"
+                :ui="{ variant: {none: ''}}" 
+                variant="none"
+                v-model="addressNumber"
+                color="blue-300" 
+                size="xl"
+                class="Ufocus rounded-sm bg-blue-300/10" 
+              />
             </SharedLabel>
           </div>
         </div>
@@ -228,7 +224,7 @@ const {addDocument} = useFirestore()
 
 const { uploadImages, images } = useFirebaseStorage()
 
-const { titleValidation, addressValidation, priceValidation, phoneValidation, addressNumberValidation, validated } = useFormValidation()
+const { titleValidation, addressValidation, priceValidation, phoneValidation, validated } = useFormValidation()
 /*  */
 
 const selectedImageFiles = computed(() => {

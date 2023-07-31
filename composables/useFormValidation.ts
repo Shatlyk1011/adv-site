@@ -1,10 +1,8 @@
 const useFormValidation = () => {
   const titleValidated = ref(false)
-
   const addressValidated = ref(false)
   const priceValidated = ref(false)
   const phoneValidated = ref(false)
-  const addressNumberValidated = ref(false)
 
   const titleValidation = (value: any) => {
     if (!value) {
@@ -21,15 +19,6 @@ const useFormValidation = () => {
       return "Заполните адрес"
     } else {
       return (addressValidated.value = true)
-    }
-  }
-
-  const addressNumberValidation = (value: any) => {
-    if (!value) {
-      addressNumberValidated.value = false
-      return "Укажите номер дома"
-    } else {
-      return (addressNumberValidated.value = true)
     }
   }
 
@@ -56,14 +45,12 @@ const useFormValidation = () => {
       titleValidated.value &&
       addressValidated.value &&
       priceValidated.value &&
-      phoneValidated.value &&
-      addressNumberValidated.value
+      phoneValidated.value
   )
 
   return {
     titleValidation,
     addressValidation,
-    addressNumberValidation,
     priceValidation,
     phoneValidation,
     validated,
