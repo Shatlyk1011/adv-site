@@ -1,11 +1,11 @@
 import { ref as strRef, uploadBytes, getDownloadURL } from "firebase/storage"
-import { Images } from "@/assets/types"
+import { TImages } from "@/assets/types"
 
 const { storage } = useFirebase()
 
 const storageError = ref()
 
-const images: Images = reactive({
+const images: TImages = reactive({
   urls: [],
   storageFolderPath: "",
 })

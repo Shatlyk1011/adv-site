@@ -29,12 +29,21 @@ export interface IAdvImage {
   storagePath: string
 }
 
-export type Images = {
+export type TImages = {
   urls: IAdvImage[]
   storageFolderPath: string
 }
 
+export type TUserInfo = {
+  readonly uid: string | number
+  userName: string
+  phone: string | number
+  registeredAt: string
+  geolocation?: string
+}
+
 export interface IAdvertisement {
+  readonly id?: string | number
   title: string
   category: string
   subCategory: string
@@ -58,11 +67,5 @@ export interface IAdvertisement {
     address: string
     addressNumber: string | number
   }
-
-  userInfo: {
-    readonly uid: string | number
-    userName: string
-    phone: string | number
-    geolocation?: string
-  }
+  userInfo: TUserInfo
 }

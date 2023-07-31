@@ -2,8 +2,9 @@ import { User } from "firebase/auth"
 interface State {
   user: null | User
   displayName: null | string
-  uid: null | string | number
-  userPhone: null | string | number
+  uid: null | string
+  userPhone: null | string
+  registeredAt: null | string
 }
 
 export const useUserStore = defineStore("user", {
@@ -13,6 +14,7 @@ export const useUserStore = defineStore("user", {
       displayName: null,
       uid: null,
       userPhone: null,
+      registeredAt: null,
     }
   },
 
@@ -21,6 +23,7 @@ export const useUserStore = defineStore("user", {
       console.log("settled user", _user)
       this.user = _user
       if (_user) {
+        this.registeredAt = _user.metadata.creationTime || null
         this.displayName = _user.displayName
         this.uid = _user.uid
         this.userPhone = _user.phoneNumber

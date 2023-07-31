@@ -50,7 +50,7 @@
         <template #footer>
           <SharedLabel title="Описание">
             <UTextarea minlength="20" v-model.trim="description" :ui="{size: 'xl'}" color="blue-500" class="rounded-md min-h-[128px]" placeholder="Опишите свой товар поподробнее..."/>
-            <p class="text-stone-400 text-medium text-sm -mt-1">Не указывайте в описании телефон и e-mail — для этого есть отдельные поля</p>
+            <p class="text-stone-400 font-medium text-sm -mt-1">Не указывайте в описании телефон и e-mail — для этого есть отдельные поля</p>
             <p class="warning" 
               v-if="count && description.length < 20">
               Опишите ваше объявление - осталось <span class="font-bold text-base">{{ 20 - description.length  }}</span> символов
@@ -105,7 +105,7 @@
               </VeeField>
               <VeeErrorMessage class="warning" name="address"/>
             </SharedLabel>
-
+            {{ registeredAt }}
             <SharedLabel title="Номер дома" class="max-w-[110px]" >
               <VeeField name="addressNumber" as="UInput" type="text" :rules="addressNumberValidation">
                 <UInput
@@ -200,6 +200,7 @@ definePageMeta({
 let count = ref(0)
 const userUid = useUserStore().uid
 const displayName = useUserStore().displayName
+const registeredAt = useUserStore().registeredAt
 
 const title = ref('')
 const selectedCategory= ref<ICategory | null>(null)
@@ -285,7 +286,7 @@ const handleAdvSubmit = async () => {
         uid: userUid!,
         userName: displayName!,
         phone: phoneNumber.value,
-        
+        registeredAt: registeredAt!
       }
 
     }
