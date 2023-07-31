@@ -1,18 +1,13 @@
 <template>
-  <section class="mt-10">
-    <h2>Последние объявления</h2>
+  <section class="mt-16">
+    <h2 class="text-4xl font-medium mb-4 text-center">Последние объявления</h2>
     <div class="grid grid-cols-4 grid-flow-dense gap-x-4 gap-y-10">
-<!--       <AdvCard/> -->
-      heheh
-    <pre>{{ advs }}</pre>
-
+      <AdvCard :adv="adv" v-for="adv in latestAdvs" :key="adv.title"/>
     </div>
 
   </section>
 </template>
 
 <script setup>
-
-const {data:advs} = await useFetch('/api/advs')
-
+const {data:latestAdvs} = await useFetch('/api/advs')
 </script>
