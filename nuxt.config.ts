@@ -7,7 +7,12 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxt/image",
     "@vee-validate/nuxt",
+    "nuxt-swiper",
   ],
+
+  swiper: {
+    modules: ["navigation", "pagination", "SwiperAutoplay"],
+  },
 
   imports: {
     dirs: ["composables/*/*.{ts,js,mjs,mts}", "./stores"],

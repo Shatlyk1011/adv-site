@@ -5,8 +5,7 @@
       <!-- description section -->
       <UCard class="rounded-sm">
         <template #header>
-          <h3 class="text-2xl font-medium">Опишите в подробностях ваш товар
-          </h3>
+          <h3 class="text-2xl font-medium">Опишите в подробностях ваш товар</h3>
         </template>
         <div class="flex flex-col gap-8 min-h-[300px] max-w-[70%]">
           <SharedLabel title="Укажите название">

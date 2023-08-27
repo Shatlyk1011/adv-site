@@ -1,7 +1,7 @@
 <template>
-  <div class="sticky top-0">
+  <div >
     <div class="text-2xl font-bold">{{ price }} {{ currency }}</div>
-    <div class="mt-2 ">
+    <div class="mt-2">
       <p class="font-medium text-lg">
         Доставка: <span :class="{ 'text-green-500' : delivery, 'text-orange-400': !delivery, }"> 
         {{delivery ? 'Возможно, свяжитесь с продавцом для подробностей': 'Не возможно'}}

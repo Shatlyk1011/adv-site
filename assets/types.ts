@@ -51,7 +51,7 @@ export interface IAdvertisement {
   advType: boolean
   createdAt: Timestamp
   description: string
-  price: string | number
+  price: string
   currency: string
   delivery: boolean
   communication: boolean
