@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   ],
 
   swiper: {
-    modules: ["navigation", "pagination", "SwiperAutoplay"],
+    modules: ["navigation", "pagination"],
   },
 
   imports: {
@@ -69,4 +69,4 @@ export default defineNuxtConfig({
     prefix: "",
   },
   vite: {},
-})
+});

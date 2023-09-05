@@ -248,13 +248,14 @@ const handleSelectedCity = (payload:string) => selectedCity.value = payload
 
 const handleSelectedCurrency = (payload: string) => currency.value = payload
 
+  //form validation
 const isFormValid = (): boolean => {
   return validated.value && selectedCategory.value && selectedSubCategory.value && condition.value && advType.value && description.value.length > 20 && selectedRegion.value && selectedCity.value && communication.value
 }
 const handleAdvSubmit = async () => {
   console.log('folderRef 1', images);
   ++count.value
-  //form validation
+
   if(isFormValid()) {
     let newAdv:IAdvertisement = {
       title: title.value,
