@@ -3,7 +3,7 @@
     <nav class="bg-stone-700 py-3 px-20 xl:px-10 text-sm ">
       <div class= "mx-auto flex justify-between items-center text-gray-100 max-w-[1440px] box-border">
         <div class="flex-grow">
-          <NuxtLink to="/">logo</NuxtLink>
+          <NuxtLink to="/">Edil ozi</NuxtLink>
         </div>
         <ul class="flex gap-8 xl:gap-6 items-center font-medium transition ">
           <li class="flex gap-1">
@@ -30,7 +30,7 @@
           </li>
 
           <li class="cursor-pointer transition px-5 py-3 bg-blue-600 hover:bg-blue-700 rounded-sm">
-            <NuxtLink to="/new">Подать объявление</NuxtLink>
+            <NuxtLink :to="{path:`${user ? '/new' : '/login'}`}">Подать объявление</NuxtLink>
           </li>
         </ul>
       </div>

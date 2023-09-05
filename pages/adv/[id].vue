@@ -13,12 +13,9 @@ const id = route.params.id as string
 
 const { getDocument, document: adv } = useFirestore()
 
-onMounted(async () => await getDocument('advs', id))
+onMounted(async () => {
+  await getDocument('advs', id)
+  console.log('onmounted')
+})
 
 </script>
-
-<style>
-/* .advId {
-  grid-template-columns: 4fr 3fr;
-} */
-</style>

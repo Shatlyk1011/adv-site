@@ -3,12 +3,12 @@ const selectedImages = ref()
 const handleImages = (e: Event) => {
   const files = (e.target as HTMLInputElement).files
   if (files) {
-    let fileArr = Array.from(files).map((file) => {
+    const fileArr = Array.from(files).map((file) => {
       return {
         file,
         url: URL.createObjectURL(file),
-      }
-    })
+      };
+    });
     if (!selectedImages.value) {
       selectedImages.value = fileArr
     } else if (selectedImages.value) {

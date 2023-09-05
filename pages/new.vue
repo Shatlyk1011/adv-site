@@ -176,7 +176,7 @@
           </SharedLabel>
         </div>
       </UCard>
-      <UButton type="submit" color="blue" label="submit"/>
+      <UButton class="max-w-min px-6 py-4 uppercase font-semibold text-xl self-end" type="submit" color="blue" label="submit"/>
   </VeeForm>
 
   </div>

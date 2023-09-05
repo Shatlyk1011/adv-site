@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="w-full" >
     <h4 class="text-3xl text-black capitalize font-bold">{{ adv.title }}</h4>
     <div class=" cursor-pointer font-medium text-sm flex items-center gap-1 bg-gray-200 hover:bg-gray-300/70 transition w-max p-2 rounded-sm mt-6">
@@ -15,11 +15,12 @@
         <ion-icon class="group-hover:opacity-100 opacity-0 transition"  name="chevron-forward-outline" style="font-size: 24px"></ion-icon>
       </div>
 
-      <Swiper 
+      <Swiper
         class="border border-stone-400/70 h-[500px] mt-4"
         :slides-per-view="1" 
+        :pagination="paginationConfig"
         :navigation="{ prevEl: '.prev', nextEl: '.next' }"
-        :pagination="{clickable: true, el: '.pagination', bulletClass: 'pagination-item',}"
+        :modules="[Pagination, Navigation]"
         >
         <SwiperSlide class="w-full" v-for="img in adv.images?.urls" :key="img.url" :lazy="true">
           <div class=" w-full h-full">
@@ -29,9 +30,9 @@
       </Swiper>
     </div>
         
-    <div class="flex gap-2 flex-wrap mt-6 w-full h-[200px]" v-if="adv.images?.urls">
+    <div class="flex gap-2 flex-wrap mt-6 w-full" v-if="adv.images?.urls">
       <div class="pagination w-20 h-14 cursor-pointer border border-transparent hover:border-blue-500 transition" v-for="img in adv.images?.urls" :key="img.url">
-        <img id="pagination-item" class=" w-full h-full object-cover" :src="img.url" alt="">
+        <img id="pagination-item" class=" w-full h-full object-cover" :src="img.url" alt="hehe">
       </div>
     </div>
 
@@ -52,7 +53,18 @@
 </template>
 
 <script setup lang="ts">
+import 'swiper/css/pagination';
+import { Pagination, Navigation } from 'swiper/modules';
+
 import { IAdvertisement } from 'assets/types';
+
+const paginationConfig = {
+  el: '.pagination', 
+  bulletClass: 'pagination-item',
+  bulletActiveClass: "pagination-item--active",
+  clickable: true, 
+}
+
 defineProps({
   adv: {
     type: Object as PropType<IAdvertisement>,
@@ -60,5 +72,95 @@ defineProps({
   }
 })
 
-// bulletActiveClass: "pagination-item--active",
 </script>
+
+<style>
+.pagination-item--active {
+  background: red !important;
+}
+</style> -->
+
+<template>
+  <swiper :pagination="pagination" :modules="modules" class="mySwiper">
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide><swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide><swiper-slide>Slide 5</swiper-slide>
+    <swiper-slide>Slide 6</swiper-slide><swiper-slide>Slide 7</swiper-slide>
+    <swiper-slide>Slide 8</swiper-slide><swiper-slide>Slide 9</swiper-slide>
+  </swiper>
+</template>
+<script>
+  // Import Swiper Vue.js components
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+
+  // Import Swiper styles
+  import 'swiper/css';
+
+  import 'swiper/css/pagination';
+
+  import './style.css';
+
+  // import required modules
+  import { Pagination } from 'swiper/modules';
+
+  export default {
+    components: {
+      Swiper,
+      SwiperSlide,
+    },
+    setup() {
+      return {
+        pagination: {
+          clickable: true,
+          renderBullet: function (index, className) {
+            return '<span class="' + className + '">' + (index + 1) + '</span>';
+          },
+        },
+        modules: [Pagination],
+      };
+    },
+  };
+</script>
+
+<style>
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
