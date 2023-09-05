@@ -253,7 +253,7 @@ const isFormValid = (): boolean => {
 }
 const handleAdvSubmit = async () => {
   console.log('folderRef 1', images);
-  count.value++
+  ++count.value
   //form validation
   if(isFormValid()) {
     let newAdv:IAdvertisement = {

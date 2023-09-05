@@ -12,13 +12,13 @@
       </div>
 
       <div class="next flex z-50 items-center justify-center cursor-pointer absolute top-0 right-0 h-full w-10 transition hover:bg-stone-700/30 text-white">
-        <ion-icon class="group-hover:opacity-100 opacity-0 transition"  name="chevron-forward-outline" style="font-size: 24px"></ion-icon>
+        <ion-icon class="group-hover:opacity-100 opacity-0 transition" name="chevron-forward-outline" style="font-size: 24px"></ion-icon>
       </div>
 
       <Swiper
         class="border border-stone-400/70 h-[500px] mt-4"
         :slides-per-view="1" 
-        :pagination="paginationConfig"
+        :modules="[Pagination, Navigation]"
         :navigation="{ prevEl: '.prev', nextEl: '.next' }"
         :modules="[Pagination, Navigation]"
         >
@@ -57,14 +57,7 @@ import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 
 import { IAdvertisement } from 'assets/types';
-
-const paginationConfig = {
-  el: '.pagination', 
-  bulletClass: 'pagination-item',
-  bulletActiveClass: "pagination-item--active",
-  clickable: true, 
-}
-
+// import pagination navigation
 defineProps({
   adv: {
     type: Object as PropType<IAdvertisement>,

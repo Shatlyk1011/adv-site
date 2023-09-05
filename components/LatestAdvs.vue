@@ -9,5 +9,5 @@
 </template>
 
 <script setup>
-const {data:latestAdvs} = await useFetch('/api/advs')
+const { data:latestAdvs } = await useFetch('/api/advs')
 </script>
